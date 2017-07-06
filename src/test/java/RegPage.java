@@ -1,8 +1,16 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by daniil.ryabov on 06.07.2017.
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegPage extends Page
 {
     private String url;
@@ -10,48 +18,31 @@ public class RegPage extends Page
     private String lastName;
     private String phone;
 
-    public void setUrl(String url)
-    {
-        this.url=url;
-    }
-    public void setFirstName(String firstName)
-    {
-        this.firstName=firstName;
-    }
-    public void setLastName(String lastName)
-    {
-        this.lastName=lastName;
-    }
-    public void setPhone(String phone)
-    {
-        this.phone=phone;
-    }
-    public void setLogin(String login)
-    {
-        this.login=login;
-    }
-    public void setPassword(String password)
-    {
-        this.password=password;
-    }
 
-    RegPage()
-    {
-    }
-    RegPage(String url,String firstName, String lastName,String login,String password,String phone) throws Exception
-    {
-        typeUrl(url);
-        Thread.sleep(5000);
-        typeLogPass(login,password);
-        typeFirstName(firstName);
-        typeLastName(lastName);
-        typePhone(phone);
-        clickDate();
-        clickAgree();
-        Thread.sleep(500);
-        clickReg();
-        Thread.sleep(7000);
-    }
+    @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
+    private WebElement firstNameField;
+    @FindBy(xpath = "//*[@id='modal']//*[@name='lastName']" )
+    private WebElement lastNameField;
+    @FindBy(xpath = "//*[@class='modal-content']//input[@name='login']")
+    private WebElement loginField;
+
+
+
+//    RegPage(String url, String firstName, String lastName, String login, String password, String phone) throws Exception {
+//        setUrl(url);
+//
+//        typeUrl(url);
+//        Thread.sleep(5000);
+//        typeLogPass(login, password);
+//        typeFirstName(firstName);
+//        typeLastName(lastName);
+//        typePhone(phone);
+//        clickDate();
+//        clickAgree();
+//        Thread.sleep(500);
+//        clickReg();
+//        Thread.sleep(7000);
+//    }
     public void typeUrl(String url)
     {
         driver.get(url);
@@ -59,18 +50,15 @@ public class RegPage extends Page
     }
     public void typeFirstName(String firstName)
     {
-        driver.findElement(By.xpath("//*[@id='modal']//*[@name='firstName']")).sendKeys(firstName);
-        this.firstName=firstName;
+        firstNameField.sendKeys(firstName);
     }
     public void typeLastName(String lastName)
     {
-        driver.findElement(By.xpath("//*[@id='modal']//*[@name='lastName']")).sendKeys(lastName);
-        this.lastName=lastName;
+        lastNameField.sendKeys(lastName);
     }
     public void typeLogin(String login)
     {
-        driver.findElement(By.xpath( "//*[@class='modal-content']//input[@name='login']")).sendKeys(login);
-        this.login=login;
+        loginField.sendKeys(login);
     }
     public void typePassword(String password)
     {
@@ -123,5 +111,9 @@ public class RegPage extends Page
     public void close()
     {
         driver.close();
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
