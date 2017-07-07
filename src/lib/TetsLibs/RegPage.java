@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Random;
+
 /**
  * Created by daniil.ryabov on 06.07.2017.
  */
@@ -106,6 +108,26 @@ public class RegPage extends Page
     {
         typeLogin(login);
         typePassword(password);
+    }
+
+    public void fillAllFieldsRand()
+    {
+        setFirstName(RandStr() + "");
+        setLastName(RandStr() + "");
+        setLogin(RandStr() + "@mail.com");
+        setPassword(RandStr() + "");
+        setPhone("9999999999");
+    }
+
+    private static StringBuilder RandStr()
+    {
+        String symbols = "qwertyabcdefgj";
+        StringBuilder randString = new StringBuilder();
+        Random rnd = new Random();
+        int count = rnd.nextInt(10)+10;
+        for(int i=0;i<count;i++)
+            randString.append(symbols.charAt((int)(Math.random()*symbols.length())));
+        return randString;
     }
     public void close()
     {
