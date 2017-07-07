@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
@@ -51,6 +52,10 @@ public class RegPage extends Page
     private WebElement agree;
     @FindBy(xpath = "//*[@class='modal-footer']//*[@type='submit']")
     private WebElement regkey;
+    @FindBy(xpath = "//*[@class='a-event drop-down-link active']")
+    private WebElement menu;
+    @FindBy(xpath = "//*[@id='region-header-profile']//*[@class='box-row profile-logout']//*[@class='a']")
+    private WebElement logoutKey;
 
     public void typeFirstName(String firstName) {firstNameField.sendKeys(firstName);}
     public void typeLastName(String lastName) {lastNameField.sendKeys(lastName);}
@@ -74,6 +79,19 @@ public class RegPage extends Page
             return "Hello message";
         }
         return "No Hello message";
+    }
+
+    public String parseRegForm()
+    {
+        try
+        {
+            driver.findElement(By.id("modal"));
+        }
+        catch (NoSuchElementException e)
+        {
+            return "No RegForm";
+        }
+        return "RegForm";
     }
 
     public void start() throws Exception
@@ -110,6 +128,12 @@ public class RegPage extends Page
         typePassword(password);
     }
 
+    public void logout()
+    {
+        menu.click();
+        logoutKey.click();
+    }
+
     public void fillAllFieldsRand()
     {
         setFirstName(RandStr() + "");
@@ -119,7 +143,7 @@ public class RegPage extends Page
         setPhone("9999999999");
     }
 
-    private static StringBuilder RandStr()
+    public static StringBuilder RandStr()
     {
         String symbols = "qwertyabcdefgj";
         StringBuilder randString = new StringBuilder();
