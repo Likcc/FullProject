@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
  * Created by daniil.ryabov on 06.07.2017.
  */
 @Data
-//@NoArgsConstructor
 @AllArgsConstructor
 public class RegPage extends Page
 {
@@ -21,6 +20,7 @@ public class RegPage extends Page
     {
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
     private WebElement firstNameField;
     @FindBy(xpath = "//*[@id='modal']//*[@name='lastName']" )

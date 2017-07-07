@@ -26,9 +26,7 @@ public class TestRun {
 
     @BeforeTest
     public void before() throws Exception
-    {
-
-    }
+    {    }
 
     @Test
     public void validData() throws Exception
