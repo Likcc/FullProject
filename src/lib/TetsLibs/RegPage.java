@@ -97,6 +97,7 @@ public class RegPage extends Page
         clickAgree();
         clickReg();
         Thread.sleep(7000);
+        //
 
     }
 
