@@ -12,13 +12,33 @@ import org.openqa.selenium.support.PageFactory;
 public class RegPage extends Page
 {
     private String url;
-    private String firstName;
-    private String lastName;
-    private String phone;
+    RegData regData = new RegData();
 
     public RegPage()
     {
         PageFactory.initElements(driver, this);
+        driver.manage().window().maximize();
+    }
+
+
+    public void setFirstName(String firstName) {
+        regData.setFirstName(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        regData.setLastName(lastName);
+    }
+
+    public void setPhone(String phone) {
+        regData.setPhone(phone);
+    }
+
+    public void setLogin(String login) {
+        regData.setLogin(login);
+    }
+
+    public void setPassword(String password) {
+        regData.setPassword(password);
     }
 
     @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
@@ -65,16 +85,28 @@ public class RegPage extends Page
     {
         driver.get(url);
         Thread.sleep(5000);
-        typeLogPass(login,password);
-        typeFirstName(firstName);
-        typeLastName(lastName);
-        typePhone(phone);
+        typeLogPass(regData.getLogin(),regData.getPassword());
+        typeFirstName(regData.getFirstName());
+        typeLastName(regData.getLastName());
+        typePhone(regData.getPhone());
         clickDate();
         clickAgree();
         Thread.sleep(500);
         clickReg();
         Thread.sleep(7000);
     }
+
+    public void startOnlyLogPass() throws Exception
+    {
+        driver.get(url);
+        Thread.sleep(5000);
+        typeLogPass(regData.getLogin(),regData.getPassword());
+        clickAgree();
+        clickReg();
+        Thread.sleep(7000);
+
+    }
+
     @Override
     public void typeLogPass(String login, String password)
     {

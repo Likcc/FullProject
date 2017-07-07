@@ -8,8 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 @Data
 public abstract class Page
 {
-    protected String login;
-    protected String password;
+//    protected String login;
+//    protected String password;
     WebDriver driver = new ChromeDriver();
     protected abstract void typeLogPass(String login, String password);
 }

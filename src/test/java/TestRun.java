@@ -38,8 +38,8 @@ public class TestRun {
         regPage.setLogin(RandStr()+"@mail.com");
         regPage.setPassword(RandStr()+"");
         regPage.setPhone("9999999999");
-        regPage.start();
-
+        regPage.startOnlyLogPass();
+//        regPage.start();
 //        regPage = new RegPage("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register", "firstname", "lastname", RandStr()+"@mail.ru","qweqweqw","9999999999");
         Assertions.assertThat(regPage.parseHelloMessage()).isEqualTo("Hello message");
     }
@@ -54,8 +54,8 @@ public class TestRun {
 
 
 
-//    @AfterTest(alwaysRun = true)
-//    public void after(){
-//        regPage.close();
-//    }
+    @AfterTest(alwaysRun = true)
+    public void after(){
+        regPage.close();
+    }
 }
