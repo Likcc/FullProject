@@ -21,25 +21,15 @@ public class RegPage extends Page
     }
 
 
-    public void setFirstName(String firstName) {
-        regData.setFirstName(firstName);
-    }
+    public void setFirstName(String firstName) {regData.setFirstName(firstName);}
 
-    public void setLastName(String lastName) {
-        regData.setLastName(lastName);
-    }
+    public void setLastName(String lastName) {regData.setLastName(lastName);}
 
-    public void setPhone(String phone) {
-        regData.setPhone(phone);
-    }
+    public void setPhone(String phone) {regData.setPhone(phone);}
 
-    public void setLogin(String login) {
-        regData.setLogin(login);
-    }
+    public void setLogin(String login) {regData.setLogin(login);}
 
-    public void setPassword(String password) {
-        regData.setPassword(password);
-    }
+    public void setPassword(String password) {regData.setPassword(password);}
 
     @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
     private WebElement firstNameField;
@@ -93,7 +83,7 @@ public class RegPage extends Page
         clickAgree();
         Thread.sleep(500);
         clickReg();
-        Thread.sleep(7000);
+        Thread.sleep(9000);
     }
 
     public void startOnlyLogPass() throws Exception
