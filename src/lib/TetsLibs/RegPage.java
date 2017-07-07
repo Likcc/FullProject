@@ -1,3 +1,5 @@
+package lib.TetsLibs;
+
 import lombok.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -62,13 +64,14 @@ public class RegPage extends Page
     {
         try
         {
-            driver.findElement(By.xpath("//*[@class='modal-welcome white-side']"));
+            driver.findElement(By.name("login"));
         }
+
         catch (org.openqa.selenium.NoSuchElementException e)
         {
-            return "No hello message";
+            return "Hello message";
         }
-        return "Hello message";
+        return "No Hello message";
     }
 
     public void start() throws Exception

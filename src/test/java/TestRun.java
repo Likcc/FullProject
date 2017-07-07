@@ -1,6 +1,6 @@
-import org.assertj.core.api.Assertions;
-import org.testng.annotations.AfterTest;
+import lib.TetsLibs.RegPage;
 import org.testng.annotations.BeforeTest;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class TestRun {
