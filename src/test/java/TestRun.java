@@ -1,7 +1,9 @@
+import lombok.Data;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -23,15 +25,24 @@ public class TestRun {
     }
 
     @BeforeTest
-    public void before() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\daniil.ryabov\\Downloads\\chromedriver_win32\\chromedriver.exe");
+    public void before() throws Exception
+    {
 
     }
 
     @Test
     public void validData() throws Exception
     {
-        regPage = new RegPage("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register", "firstname", "lastname", RandStr()+"@mail.ru","qweqweqw","9999999999");
+        regPage = new RegPage();
+        regPage.setUrl("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register");
+        regPage.setFirstName(RandStr()+"");
+        regPage.setLastName(RandStr()+"");
+        regPage.setLogin(RandStr()+"@mail.com");
+        regPage.setPassword(RandStr()+"");
+        regPage.setPhone("9999999999");
+        regPage.start();
+
+//        regPage = new RegPage("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register", "firstname", "lastname", RandStr()+"@mail.ru","qweqweqw","9999999999");
         Assertions.assertThat(regPage.parseHelloMessage()).isEqualTo("Hello message");
     }
 
