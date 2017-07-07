@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 /**
  * Created by daniil.ryabov on 06.07.2017.
  */
+// new test
 @Data
 public abstract class Page
 {
