@@ -42,8 +42,8 @@ public class TestRun {
 //        Assertions.assertThat(regPage.parseHelloMessage()).isEqualTo("Hello message");
 //    }
 
-    @AfterTest(alwaysRun = true)
-    public void after(){
-        regPage.close();
-    }
+//    @AfterTest(alwaysRun = true)
+//    public void after(){
+//        regPage.close();
+//    }
 }
