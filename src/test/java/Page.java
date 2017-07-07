@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 @Data
 public abstract class Page
 {
- // test
+ // test 123123
 //    protected String login;
 //    protected String password;
     WebDriver driver = new ChromeDriver();
