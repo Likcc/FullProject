@@ -75,7 +75,7 @@ public class RegPage extends Page
     public void clickReg() {regkey.click();}
     public void clickOpenRegWindow() {openRegWindowButton.click();}
 
-    public String parseHelloMessage()
+    public String parseSignIn()
     {
         try
         {
@@ -84,22 +84,9 @@ public class RegPage extends Page
 
         catch (org.openqa.selenium.NoSuchElementException e)
         {
-            return "Hello message";
+            return "SignIn";
         }
-        return "No Hello message";
-    }
-
-    public String parseRegForm()
-    {
-        try
-        {
-            driver.findElement(By.id("modal"));
-        }
-        catch (NoSuchElementException e)
-        {
-            return "No RegForm";
-        }
-        return "RegForm";
+        return "No SignIn";
     }
 
     public void start() throws Exception {

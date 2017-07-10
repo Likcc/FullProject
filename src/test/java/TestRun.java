@@ -7,19 +7,17 @@ import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class TestRun {
-    RegPage regPage;
+    RegPage regPage = new RegPage();;
     @BeforeTest
     public void before() throws Exception
-    {
-        regPage = new RegPage();
-    }
+    {}
 
     @Test
     public void validData() throws Exception
     {
         regPage.fillAllFieldsRand();
         regPage.start();
-        Assertions.assertThat(regPage.parseHelloMessage()).isEqualTo("Hello message");
+        Assertions.assertThat(regPage.parseSignIn()).isEqualTo("SignIn");
         regPage.logout();
     }
 
@@ -29,7 +27,7 @@ public class TestRun {
         regPage.fillAllFieldsRand();
         regPage.setLogin(Helper.RandStr()+"");
         regPage.start();
-        Assertions.assertThat(regPage.parseRegForm()).isEqualTo("RegForm");
+        Assertions.assertThat(regPage.parseSignIn()).isEqualTo("No SignIn");
     }
 
     @Test()
@@ -38,7 +36,7 @@ public class TestRun {
         regPage.fillAllFieldsRand();
         regPage.setPassword("");
         regPage.start();
-        Assertions.assertThat(regPage.parseRegForm()).isEqualTo("RegForm");
+        Assertions.assertThat(regPage.parseSignIn()).isEqualTo("No SignIn");
     }
 
     @AfterTest(alwaysRun = true)
