@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.*;
+import java.util.ArrayList;
 
-import static lib.help_libs.Helper.RandStr;
+import static lib.help_libs.Helper.randStr;
 import static lib.help_libs.Helper.isDisplayed;
 
 
@@ -18,6 +18,8 @@ import static lib.help_libs.Helper.isDisplayed;
 public class RegPage extends Page
 {
     RegData regData = new RegData();
+    private ArrayList<WebElement> errors = new ArrayList<WebElement>();
+
     @FindBy(xpath = "//*[@class='a-btn a-btn-trans sign-up-btn']")
     private WebElement openRegWindowButton;
     @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
@@ -50,13 +52,17 @@ public class RegPage extends Page
     private WebElement invLogin;
     @FindBy(xpath = "//*[@class='msg msg-error msg-password']")
     private WebElement invPassword;
+//    @FindBy(xpath = "//*[@class='modal-error']")
+//    private WebElement modalError;
 
 
     public RegPage()
     {
         PageFactory.initElements(driver, this);
         driver.manage().window().maximize();
-
+        errors.add(invLogin);
+        errors.add(invPassword);
+//        errors.add(modalError);
     }
     public void setFirstName(String firstName) {regData.setFirstName(firstName);}
     public void setLastName(String lastName) {regData.setLastName(lastName);}
@@ -102,12 +108,14 @@ public class RegPage extends Page
         clickAgree();
         wait.until(ExpectedConditions.invisibilityOf(regWindow));
         clickReg();
-        if (isDisplayed(invPassword) || isDisplayed(invLogin))
+        if (isDisplayed(errors))
         {
             return;
         }
         else
+        {
             wait.until(ExpectedConditions.elementToBeClickable(menu));
+        }
     }
 
 
@@ -138,10 +146,10 @@ public class RegPage extends Page
 
     public void fillAllFieldsRand()
     {
-        setFirstName(RandStr() + "");
-        setLastName(RandStr() + "");
-        setLogin(RandStr() + "@mail.com");
-        setPassword(RandStr() + "");
+        setFirstName(randStr() + "");
+        setLastName(randStr() + "");
+        setLogin(randStr() + "@mail.com");
+        setPassword(randStr() + "");
         setPhone("9999999999");
     }
 
