@@ -1,41 +1,25 @@
-package lib.TetsLibs;
+package lib.test_libs;
 
 import lombok.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
 
-/**
- * Created by daniil.ryabov on 06.07.2017.
- */
+import static lib.help_libs.Helper.RandStr;
+import static lib.help_libs.Helper.isDisplayed;
+
+
 @Data
 @AllArgsConstructor
 public class RegPage extends Page
 {
-    private String url;
     RegData regData = new RegData();
-
-    public RegPage()
-    {
-        PageFactory.initElements(driver, this);
-        driver.manage().window().maximize();
-    }
-
-
-    public void setFirstName(String firstName) {regData.setFirstName(firstName);}
-
-    public void setLastName(String lastName) {regData.setLastName(lastName);}
-
-    public void setPhone(String phone) {regData.setPhone(phone);}
-
-    public void setLogin(String login) {regData.setLogin(login);}
-
-    public void setPassword(String password) {regData.setPassword(password);}
-
+    @FindBy(xpath = "//*[@class='a-btn a-btn-trans sign-up-btn']")
+    private WebElement openRegWindowButton;
     @FindBy(xpath = "//*[@id='modal']//*[@name='firstName']")
     private WebElement firstNameField;
     @FindBy(xpath = "//*[@id='modal']//*[@name='lastName']" )
@@ -46,16 +30,39 @@ public class RegPage extends Page
     private WebElement passwordField;
     @FindBy(xpath = "//*[@id='modal']//*[@name='phone']")
     private WebElement phoneField;
+    @FindBy(id="ui-datepicker-div")
+    private WebElement regWindow;
     @FindBy(id= "birthDay")
     private WebElement birthDay;
     @FindBy(xpath = "//*[@for='agreement']")
     private WebElement agree;
     @FindBy(xpath = "//*[@class='modal-footer']//*[@type='submit']")
     private WebElement regkey;
-    @FindBy(xpath = "//*[@class='a-event drop-down-link active']")
+    @FindBy(xpath = "//*[@class='profile-nav-inner']//*[@class='a-event drop-down-link']")
     private WebElement menu;
     @FindBy(xpath = "//*[@id='region-header-profile']//*[@class='box-row profile-logout']//*[@class='a']")
     private WebElement logoutKey;
+    @FindBy(id="modal")
+    private WebElement modal;
+    @FindBy(xpath = "//*[@class='a-event header-boxlink-a drop-down-link']")
+    private WebElement mail;
+    @FindBy(xpath = "//*[@class='msg msg-error msg-login']")
+    private WebElement invLogin;
+    @FindBy(xpath = "//*[@class='msg msg-error msg-password']")
+    private WebElement invPassword;
+
+
+    public RegPage()
+    {
+        PageFactory.initElements(driver, this);
+        driver.manage().window().maximize();
+
+    }
+    public void setFirstName(String firstName) {regData.setFirstName(firstName);}
+    public void setLastName(String lastName) {regData.setLastName(lastName);}
+    public void setPhone(String phone) {regData.setPhone(phone);}
+    public void setLogin(String login) {regData.setLogin(login);}
+    public void setPassword(String password) {regData.setPassword(password);}
 
     public void typeFirstName(String firstName) {firstNameField.sendKeys(firstName);}
     public void typeLastName(String lastName) {lastNameField.sendKeys(lastName);}
@@ -66,6 +73,7 @@ public class RegPage extends Page
     public void clickDate() {birthDay.click();}
     public void clickAgree() {agree.click();}
     public void clickReg() {regkey.click();}
+    public void clickOpenRegWindow() {openRegWindowButton.click();}
 
     public String parseHelloMessage()
     {
@@ -94,31 +102,36 @@ public class RegPage extends Page
         return "RegForm";
     }
 
-    public void start() throws Exception
-    {
+    public void start() throws Exception {
         driver.get(url);
-        Thread.sleep(5000);
-        typeLogPass(regData.getLogin(),regData.getPassword());
+        wait.until(ExpectedConditions.elementToBeClickable(openRegWindowButton));
+        clickOpenRegWindow();
+        wait.until(ExpectedConditions.elementToBeClickable(regkey));
+        typeLogPass(regData.getLogin(), regData.getPassword());
         typeFirstName(regData.getFirstName());
         typeLastName(regData.getLastName());
         typePhone(regData.getPhone());
         clickDate();
         clickAgree();
-        Thread.sleep(500);
+        wait.until(ExpectedConditions.invisibilityOf(regWindow));
         clickReg();
-        Thread.sleep(9000);
+        if (isDisplayed(invPassword) || isDisplayed(invLogin))
+        {
+            return;
+        }
+        else
+            wait.until(ExpectedConditions.elementToBeClickable(menu));
     }
+
 
     public void startOnlyLogPass() throws Exception
     {
         driver.get(url);
-        Thread.sleep(5000);
+        wait.until(ExpectedConditions.elementToBeClickable(regkey));
         typeLogPass(regData.getLogin(),regData.getPassword());
         clickAgree();
         clickReg();
-        Thread.sleep(7000);
-        //
-
+        wait.until(ExpectedConditions.invisibilityOf(modal));
     }
 
     @Override
@@ -130,7 +143,9 @@ public class RegPage extends Page
 
     public void logout()
     {
+        wait.until(ExpectedConditions.elementToBeClickable(menu));
         menu.click();
+        wait.until(ExpectedConditions.visibilityOf(logoutKey));
         logoutKey.click();
     }
 
@@ -143,16 +158,7 @@ public class RegPage extends Page
         setPhone("9999999999");
     }
 
-    public static StringBuilder RandStr()
-    {
-        String symbols = "qwertyabcdefgj";
-        StringBuilder randString = new StringBuilder();
-        Random rnd = new Random();
-        int count = rnd.nextInt(10)+10;
-        for(int i=0;i<count;i++)
-            randString.append(symbols.charAt((int)(Math.random()*symbols.length())));
-        return randString;
-    }
+
     public void close()
     {
         driver.close();

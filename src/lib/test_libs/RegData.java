@@ -1,4 +1,4 @@
-package lib.TetsLibs;
+package lib.test_libs;
 
 import lombok.Data;
 

@@ -1,5 +1,6 @@
 //import cucumber.api.Scenario;
-import lib.TetsLibs.RegPage;
+import lib.test_libs.RegPage;
+import lib.help_libs.Helper;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.assertj.core.api.Assertions;
@@ -13,24 +14,20 @@ public class TestRun {
         regPage = new RegPage();
     }
 
-    //Scenario: "whensmth"
     @Test
     public void validData() throws Exception
     {
-        regPage.setUrl("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register");
         regPage.fillAllFieldsRand();
-//        regPage.startOnlyLogPass();
         regPage.start();
         Assertions.assertThat(regPage.parseHelloMessage()).isEqualTo("Hello message");
-//        regPage.logout();
+        regPage.logout();
     }
 
     @Test
     public void invalidLogin() throws Exception
     {
-        regPage.setUrl("https://libertex-fxb3-test.web.test.fxclub.org/#modal_register");
         regPage.fillAllFieldsRand();
-        regPage.setLogin(RegPage.RandStr()+"");
+        regPage.setLogin(Helper.RandStr()+"");
         regPage.start();
         Assertions.assertThat(regPage.parseRegForm()).isEqualTo("RegForm");
     }
