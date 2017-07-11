@@ -1,5 +1,4 @@
 package tests;
-//import cucumber.api.Scenario;
 import app.core.AppManager;
 import app.core.TestBase;
 import app.helpers.Helper;
@@ -10,10 +9,6 @@ import org.assertj.core.api.Assertions;
 
 public class TestRun extends TestBase {
 
-    public TestRun (AppManager app)
-    {
-        super(app);
-    }
 //    @BeforeTest
 //    public void before() throws Exception
 //    {
