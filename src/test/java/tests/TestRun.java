@@ -48,16 +48,24 @@ public class TestRun extends TestBase {
     }
 
     @Test
-    public void longPassword() throws Exception
+    public void noFirstName() throws Exception
     {
         getApp().pagesHelper().regPage().fillAllFieldsRand();
-        getApp().pagesHelper().regPage().setPassword(Helper.randStr(70));
+        getApp().pagesHelper().regPage().setFirstName("");
         getApp().pagesHelper().regPage().start();
         Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("No SignIn");
     }
 
-    @AfterTest(alwaysRun = true)
-    public void after(){
-        getApp().pagesHelper().regPage().close();
+    @Test
+    public void noLastName() throws Exception
+    {
+        getApp().pagesHelper().regPage().fillAllFieldsRand();
+        getApp().pagesHelper().regPage().setLastName("");
+        getApp().pagesHelper().regPage().start();
+        Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("No SignIn");
     }
+    //    @AfterTest(alwaysRun = true)
+//    public void after(){
+//        getApp().pagesHelper().regPage().close();
+//    }
 }

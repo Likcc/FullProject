@@ -52,8 +52,10 @@ public class RegPage extends Pages
     private WebElement invLogin;
     @FindBy(xpath = "//*[@class='msg msg-error msg-password']")
     private WebElement invPassword;
-//    @FindBy(xpath = "//*[@class='modal-error']")
-//    private WebElement modalError;
+    @FindBy(xpath = "//*[@class='msg msg-error msg-firstName']")
+    private WebElement invFirstName;
+    @FindBy(xpath = "//*[@class='msg msg-error msg-lastName']")
+    private WebElement invLastName;
 
 
     public RegPage(AppManager app)
@@ -61,9 +63,14 @@ public class RegPage extends Pages
         super(app);
         PageFactory.initElements(getApp().getDriver(), this);
         getApp().getDriver().manage().window().maximize();
+        addErrors();
+    }
+    private void addErrors()
+    {
         errors.add(invLogin);
         errors.add(invPassword);
-//        errors.add(modalError);
+        errors.add(invFirstName);
+        errors.add(invLastName);
     }
     public void setFirstName(String firstName) {
         regData.setFirstName(firstName);}
