@@ -1,7 +1,9 @@
-package lib.test_libs;
+package app.pages;
 
+import app.core.AppManager;
 import lombok.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,13 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 
-import static lib.help_libs.Helper.randStr;
-import static lib.help_libs.Helper.isDisplayed;
-
+import static app.helpers.Helper.isDisplayed;
+import static app.helpers.Helper.randStr;
 
 @Data
-@AllArgsConstructor
-public class RegPage extends Page
+public class RegPage extends Pages
 {
     RegData regData = new RegData();
     private ArrayList<WebElement> errors = new ArrayList<WebElement>();
@@ -56,19 +56,25 @@ public class RegPage extends Page
 //    private WebElement modalError;
 
 
-    public RegPage()
+    public RegPage(AppManager app)
     {
-        PageFactory.initElements(driver, this);
-        driver.manage().window().maximize();
+        super(app);
+        PageFactory.initElements(getApp().getDriver(), this);
+        getApp().getDriver().manage().window().maximize();
         errors.add(invLogin);
         errors.add(invPassword);
 //        errors.add(modalError);
     }
-    public void setFirstName(String firstName) {regData.setFirstName(firstName);}
-    public void setLastName(String lastName) {regData.setLastName(lastName);}
-    public void setPhone(String phone) {regData.setPhone(phone);}
-    public void setLogin(String login) {regData.setLogin(login);}
-    public void setPassword(String password) {regData.setPassword(password);}
+    public void setFirstName(String firstName) {
+        regData.setFirstName(firstName);}
+    public void setLastName(String lastName) {
+        regData.setLastName(lastName);}
+    public void setPhone(String phone) {
+        regData.setPhone(phone);}
+    public void setLogin(String login) {
+        regData.setLogin(login);}
+    public void setPassword(String password) {
+        regData.setPassword(password);}
 
     public void typeFirstName(String firstName) {firstNameField.sendKeys(firstName);}
     public void typeLastName(String lastName) {lastNameField.sendKeys(lastName);}
@@ -85,10 +91,10 @@ public class RegPage extends Page
     {
         try
         {
-            driver.findElement(By.name("login"));
+            getApp().getDriver().findElement(By.name("login"));
         }
 
-        catch (org.openqa.selenium.NoSuchElementException e)
+        catch (NoSuchElementException e)
         {
             return "SignIn";
         }
@@ -96,17 +102,17 @@ public class RegPage extends Page
     }
 
     public void start() throws Exception {
-        driver.get(url);
-        wait.until(ExpectedConditions.elementToBeClickable(openRegWindowButton));
+        getApp().getDriver().get(url);
+        getApp().getWait().until(ExpectedConditions.elementToBeClickable(openRegWindowButton));
         clickOpenRegWindow();
-        wait.until(ExpectedConditions.elementToBeClickable(regkey));
+        getApp().getWait().until(ExpectedConditions.elementToBeClickable(regkey));
         typeLogPass(regData.getLogin(), regData.getPassword());
         typeFirstName(regData.getFirstName());
         typeLastName(regData.getLastName());
         typePhone(regData.getPhone());
         clickDate();
         clickAgree();
-        wait.until(ExpectedConditions.invisibilityOf(regWindow));
+        getApp().getWait().until(ExpectedConditions.invisibilityOf(regWindow));
         clickReg();
         if (isDisplayed(errors))
         {
@@ -114,22 +120,21 @@ public class RegPage extends Page
         }
         else
         {
-            wait.until(ExpectedConditions.elementToBeClickable(menu));
+            getApp().getWait().until(ExpectedConditions.elementToBeClickable(menu));
         }
     }
 
 
     public void startOnlyLogPass() throws Exception
     {
-        driver.get(url);
-        wait.until(ExpectedConditions.elementToBeClickable(regkey));
-        typeLogPass(regData.getLogin(),regData.getPassword());
+        getApp().getDriver().get(url);
+        getApp().getWait().until(ExpectedConditions.elementToBeClickable(regkey));
+        typeLogPass(regData.getLogin(), regData.getPassword());
         clickAgree();
         clickReg();
-        wait.until(ExpectedConditions.invisibilityOf(modal));
+        getApp().getWait().until(ExpectedConditions.invisibilityOf(modal));
     }
 
-    @Override
     public void typeLogPass(String login, String password)
     {
         typeLogin(login);
@@ -138,9 +143,9 @@ public class RegPage extends Page
 
     public void logout()
     {
-        wait.until(ExpectedConditions.elementToBeClickable(menu));
+        getApp().getWait().until(ExpectedConditions.elementToBeClickable(menu));
         menu.click();
-        wait.until(ExpectedConditions.visibilityOf(logoutKey));
+        getApp().getWait().until(ExpectedConditions.visibilityOf(logoutKey));
         logoutKey.click();
     }
 
@@ -156,6 +161,6 @@ public class RegPage extends Page
 
     public void close()
     {
-        driver.close();
+        getApp().getDriver().close();
     }
 }

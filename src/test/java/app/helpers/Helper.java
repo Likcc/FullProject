@@ -1,4 +1,4 @@
-package lib.help_libs;
+package app.helpers;
 
 import org.openqa.selenium.WebElement;
 

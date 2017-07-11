@@ -1,4 +1,4 @@
-package lib.test_libs;
+package app.pages;
 
 import lombok.Data;
 
