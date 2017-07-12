@@ -11,5 +11,5 @@ public class Pages
     {
         this.app=app;
     }
-    protected String url = "https://libertex-fxb3-test.web.test.fxclub.org";;
+    protected String url = "https://libertex-fxb3-test.web.test.fxclub.org";
 }
