@@ -2,6 +2,7 @@ package tests;
 import app.core.AppManager;
 import app.core.TestBase;
 import app.helpers.Helper;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import org.assertj.core.api.Assertions;
@@ -9,34 +10,23 @@ import org.assertj.core.api.Assertions;
 
 public class TestRun extends TestBase {
 
-//    @BeforeTest
-//    public void before() throws Exception
+//    @Test
+//    public void validData() throws Exception
 //    {
-//        getApp().pagesHelper().regPage();
-//    }
-//    @BeforeMethod
-//    public void before() throws Exception
-//    {
-//        regPage = new RegPage();
+//        getApp().pagesHelper().regPage().fillAllFieldsRand();
+//        getApp().pagesHelper().regPage().start();
+//        Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("SignIn");
+//        getApp().pagesHelper().regPage().logout();
 //    }
 
-    @Test
-    public void validData() throws Exception
-    {
-        getApp().pagesHelper().regPage().fillAllFieldsRand();
-        getApp().pagesHelper().regPage().start();
-        Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("SignIn");
-        getApp().pagesHelper().regPage().logout();
-    }
-
-    @Test
-    public void invalidLogin() throws Exception
-    {
-        getApp().pagesHelper().regPage().fillAllFieldsRand();
-        getApp().pagesHelper().regPage().setLogin(Helper.randStr()+"");
-        getApp().pagesHelper().regPage().start();
-        Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("No SignIn");
-    }
+//    @Test
+//    public void invalidLogin() throws Exception
+//    {
+//        getApp().pagesHelper().regPage().fillAllFieldsRand();
+//        getApp().pagesHelper().regPage().setLogin(Helper.randStr()+"");
+//        getApp().pagesHelper().regPage().start();
+//        Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("No SignIn");
+//    }
 
     @Test()
     public void shortPassword() throws Exception
@@ -64,8 +54,9 @@ public class TestRun extends TestBase {
         getApp().pagesHelper().regPage().start();
         Assertions.assertThat(getApp().pagesHelper().regPage().parseSignIn()).isEqualTo("No SignIn");
     }
-    //    @AfterTest(alwaysRun = true)
-//    public void after(){
-//        getApp().pagesHelper().regPage().close();
-//    }
+
+    @AfterTest(alwaysRun = true)
+    public void after(){
+        getApp().pagesHelper().regPage().close();
+    }
 }

@@ -20,11 +20,11 @@ public class Helper {
         return randString+"";
     }
 
-    public static String randStr(int count)
+    public static String randStr(int length)
     {
         String symbols = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder randString = new StringBuilder();
-        for(int i=0;i<count;i++)
+        for(int i=0;i<length;i++)
             randString.append(symbols.charAt((int)(Math.random()*symbols.length())));
         return randString+"";
     }
