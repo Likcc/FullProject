@@ -17,7 +17,7 @@
     <!--</test>-->
 <!--</suite>-->
 
-<suite name="TestSuite" verbose="1" parallel="classes" thread-count="3">
+<suite name="TestSuite" verbose="1" parallel="classes" thread-count="2">
     <test name="TestParallel" >
         <classes>
             <class name="tests.TestRun"></class>
