@@ -110,7 +110,6 @@ public class RegPage extends Pages
 
     public void start() throws Exception {
         getApp().getDriver().get(url);
-        String source = getApp().getDriver().getPageSource();
         getApp().getWait().until(ExpectedConditions.elementToBeClickable(openRegWindowButton));
         clickOpenRegWindow();
         getApp().getWait().until(ExpectedConditions.elementToBeClickable(regkey));
