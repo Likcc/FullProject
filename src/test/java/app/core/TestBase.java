@@ -14,7 +14,7 @@ public class TestBase {
     @BeforeClass(alwaysRun = true)
     public void init() throws Exception{
         appManager = new AppManager();
-        appManager.setDriver(new RemoteWebDriver(new URL("http://192.168.99.100:8888/wd/hub"),DesiredCapabilities.chrome()));
+        appManager.setDriver(new RemoteWebDriver(new URL("http://192.168.99.100:8888/wd/hub"),DesiredCapabilities.firefox()));
         appManager.setWait(new WebDriverWait(appManager.getDriver(),10));
     }
     public AppManager getApp(){
