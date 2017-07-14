@@ -1,8 +1,10 @@
 package app.pages;
 
 import app.core.AppManager;
+import app.helpers.Helper;
 import lombok.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -56,13 +58,16 @@ public class RegPage extends Pages
     private WebElement invFirstName;
     @FindBy(xpath = "//*[@class='msg msg-error msg-lastName']")
     private WebElement invLastName;
+    @FindBy(xpath = "//*[@class='a-event header-boxlink-a']")
+    private WebElement littleWindMenu;
+    @FindBy(xpath = "//*[@class='active'][1]")
+    private WebElement loadOk;
 
 
     public RegPage(AppManager app)
     {
         super(app);
         PageFactory.initElements(getApp().getDriver(), this);
-        getApp().getDriver().manage().window().maximize();
         addErrors();
     }
     private void addErrors()
@@ -110,6 +115,9 @@ public class RegPage extends Pages
 
     public void start() throws Exception {
         getApp().getDriver().get(url);
+        getApp().getWait().until(ExpectedConditions.visibilityOf(loadOk));
+        if(Helper.isDisplayed(littleWindMenu))
+            littleWindMenu.click();
         getApp().getWait().until(ExpectedConditions.elementToBeClickable(openRegWindowButton));
         clickOpenRegWindow();
         getApp().getWait().until(ExpectedConditions.elementToBeClickable(regkey));
